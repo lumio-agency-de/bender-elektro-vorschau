@@ -1,50 +1,59 @@
-/* Bender Elektro — Interaktion (ausgelagert für strenge CSP) */
+/* Bender Elektro V2 — Interaktion (kein Framework, CSP-fest) */
 (function () {
-  "use strict";
+  'use strict';
+  document.documentElement.classList.add('js');
 
-  var yr = document.getElementById("year");
-  if (yr) yr.textContent = new Date().getFullYear();
-
-  var nav = document.getElementById("nav");
+  /* Nav: scrolled-Zustand */
+  var nav = document.getElementById('nav');
   function onScroll() {
-    if (!nav) return;
-    if (window.scrollY > 40) nav.classList.add("scrolled");
-    else nav.classList.remove("scrolled");
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 24);
   }
-  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  var burger = document.getElementById("burger");
-  var links = document.getElementById("navlinks");
-  function closeMenu() {
-    if (!burger || !links) return;
-    burger.classList.remove("open");
-    links.classList.remove("open");
-    burger.setAttribute("aria-expanded", "false");
-  }
+  /* Burger-Menü */
+  var burger = document.getElementById('burger');
+  var links = document.getElementById('navlinks');
   if (burger && links) {
-    burger.addEventListener("click", function () {
-      var open = links.classList.toggle("open");
-      burger.classList.toggle("open", open);
-      burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.addEventListener('click', function () {
+      var open = links.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.style.overflow = open ? 'hidden' : '';
     });
-    links.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", closeMenu);
+    links.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        links.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
     });
   }
 
-  var reveals = document.querySelectorAll(".reveal");
-  if ("IntersectionObserver" in window && reveals.length) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-    reveals.forEach(function (el) { io.observe(el); });
+  /* Reveal beim Scrollen */
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reveals = document.querySelectorAll('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    reveals.forEach(function (el) { el.classList.add('in'); });
   } else {
-    reveals.forEach(function (el) { el.classList.add("in"); });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
   }
+
+  /* Bild-Slots: Datei da -> zeigen, sonst gestylter Platzhalter */
+  document.querySelectorAll('.frame[data-slot]').forEach(function (frame) {
+    var img = frame.querySelector('img');
+    if (!img) return;
+    frame.classList.add('empty');
+    function ok() { frame.classList.remove('empty'); }
+    if (img.complete && img.naturalWidth > 0) { ok(); }
+    else { img.addEventListener('load', ok); }
+  });
+
+  /* Jahr im Footer */
+  var y = document.getElementById('year');
+  if (y) y.textContent = String(new Date().getFullYear());
 })();
