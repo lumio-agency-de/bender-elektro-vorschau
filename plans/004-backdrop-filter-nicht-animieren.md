@@ -1,6 +1,6 @@
 # 004 — `backdrop-filter` nicht animieren, Scroll-Schwelle entprellen
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: da11f9e
 - **Severity**: MEDIUM
 - **Category**: Performance

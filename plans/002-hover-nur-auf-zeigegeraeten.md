@@ -1,6 +1,6 @@
 # 002 — Hover-Bewegung auf echte Zeigegeräte begrenzen
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: da11f9e
 - **Severity**: HIGH
 - **Category**: Accessibility

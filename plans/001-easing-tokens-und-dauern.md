@@ -1,6 +1,6 @@
 # 001 — Easing-Tokens einführen und Mikro-Dauern auf Budget bringen
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: da11f9e
 - **Severity**: LOW
 - **Category**: Cohesion & tokens / Easing & duration

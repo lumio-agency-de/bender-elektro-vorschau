@@ -1,6 +1,6 @@
 # 005 — Lücken im Reduced-Motion-Block schließen
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: da11f9e
 - **Severity**: MEDIUM
 - **Category**: Accessibility

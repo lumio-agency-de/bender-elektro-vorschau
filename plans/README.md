@@ -20,11 +20,11 @@ dort ausdrücklich nicht.
 
 | # | Titel | Schwere | Status |
 | --- | --- | --- | --- |
-| [001](001-easing-tokens-und-dauern.md) | Easing-Tokens einführen und Mikro-Dauern auf Budget bringen | LOW | TODO |
-| [002](002-hover-nur-auf-zeigegeraeten.md) | Hover-Bewegung auf echte Zeigegeräte begrenzen | HIGH | TODO |
-| [003](003-press-feedback-active.md) | Press-Feedback (`:active`) auf allen klickbaren Elementen | HIGH | TODO |
-| [004](004-backdrop-filter-nicht-animieren.md) | `backdrop-filter` nicht animieren, Scroll-Schwelle entprellen | MEDIUM | TODO |
-| [005](005-reduced-motion-luecken.md) | Lücken im Reduced-Motion-Block schließen | MEDIUM | TODO |
+| [001](001-easing-tokens-und-dauern.md) | Easing-Tokens einführen und Mikro-Dauern auf Budget bringen | LOW | DONE |
+| [002](002-hover-nur-auf-zeigegeraeten.md) | Hover-Bewegung auf echte Zeigegeräte begrenzen | HIGH | DONE |
+| [003](003-press-feedback-active.md) | Press-Feedback (`:active`) auf allen klickbaren Elementen | HIGH | DONE |
+| [004](004-backdrop-filter-nicht-animieren.md) | `backdrop-filter` nicht animieren, Scroll-Schwelle entprellen | MEDIUM | DONE |
+| [005](005-reduced-motion-luecken.md) | Lücken im Reduced-Motion-Block schließen | MEDIUM | DONE |
 
 ## Reihenfolge — verbindlich
 
@@ -57,3 +57,9 @@ Aus dem Audit bewusst offengelassen, kann bei Bedarf nachgezogen werden:
 - **Die große Telefonnummer im roten Band** (`css/style.css:232`) bekommt beim Hover eine
   3 px starke Unterstreichung, die hart aufblitzt — dort fehlt jede Transition. Kleinster
   Aufwand an der prominentesten Stelle der Seite.
+
+## Stand
+
+Alle fünf Pläne wurden am 26.07.2026 umgesetzt und sind in Commit `9c82a0a` eingeflossen.
+Die Feel-Checks auf einem echten Touch-Gerät stehen noch aus — sie lassen sich aus dem
+Code allein nicht beurteilen.

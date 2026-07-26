@@ -1,6 +1,6 @@
 # 003 — Press-Feedback (`:active`) auf allen klickbaren Elementen
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: da11f9e
 - **Severity**: HIGH
 - **Category**: Physicality & origin / Purpose & frequency
