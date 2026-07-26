@@ -5,8 +5,14 @@
 
   /* Nav: scrolled-Zustand */
   var nav = document.getElementById('nav');
+  var navScrolled = false;
+  /* Hysterese: ein bei 24px, aus erst bei 8px — sonst flackert die
+     Leiste, wenn man um die Schwelle herum scrollt. */
   function onScroll() {
-    if (nav) nav.classList.toggle('scrolled', window.scrollY > 24);
+    if (!nav) return;
+    var y = window.scrollY;
+    if (!navScrolled && y > 24) { navScrolled = true; nav.classList.add('scrolled'); }
+    else if (navScrolled && y < 8) { navScrolled = false; nav.classList.remove('scrolled'); }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();

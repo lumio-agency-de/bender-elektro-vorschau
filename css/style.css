@@ -29,6 +29,9 @@
   --pad:clamp(1.25rem,5vw,4rem);
   /* Der Blitz-Winkel — eine Schräge für alles */
   --cut:14px;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-in-out:cubic-bezier(.77,0,.175,1);
+  --ease-drawer:cubic-bezier(.32,.72,0,1);
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -78,9 +81,8 @@ p{max-width:62ch}
   font-size:1.15rem;letter-spacing:.02em;text-decoration:none;
   padding:.78rem 1.7rem;border:none;cursor:pointer;
   clip-path:polygon(var(--cut) 0,100% 0,calc(100% - var(--cut)) 100%,0 100%);
-  transition:transform .25s ease,background .25s ease,color .25s ease;
+  transition:transform 160ms var(--ease-out),background 160ms ease,color 160ms ease;
 }
-.btn:hover{transform:translateX(3px)}
 .btn--rot{background:var(--rot);color:#fff}
 .btn--rot:hover{background:var(--rot-dunkel)}
 .btn--ink{background:var(--ink);color:#fff}
@@ -97,7 +99,7 @@ p{max-width:62ch}
   padding:.8rem var(--pad);
   background:rgba(248,248,246,.6);
   backdrop-filter:blur(0px);
-  transition:background .3s ease,box-shadow .3s ease,backdrop-filter .3s ease;
+  transition:background 240ms ease,box-shadow 240ms ease;
 }
 .nav.scrolled{background:rgba(248,248,246,.92);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
 .brand{display:flex;align-items:center;gap:.55rem;text-decoration:none}
@@ -105,16 +107,17 @@ p{max-width:62ch}
 .brand-name{font-family:var(--display);font-style:italic;font-weight:700;font-size:1.45rem;line-height:1}
 .brand-sub{font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:block;font-family:var(--font);font-style:normal}
 .nav-links{display:flex;align-items:center;gap:1.7rem}
-.nav-links a{font-weight:500;font-size:.95rem;text-decoration:none;color:var(--ink-soft);transition:color .2s}
+.nav-links a{font-weight:500;font-size:.95rem;text-decoration:none;color:var(--ink-soft);transition:color 160ms ease}
 .nav-links a:hover,.nav-links a[aria-current]{color:var(--rot)}
 .nav-tel{
   font-family:var(--display);font-style:italic;font-weight:700;font-size:1.05rem;
   color:#fff !important;background:var(--rot);padding:.42rem 1.1rem;
   clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
+  transition:background 160ms ease,transform 160ms var(--ease-out);
 }
 .nav-tel:hover{background:var(--rot-dunkel)}
 .burger{display:none;background:none;border:none;cursor:pointer;padding:.4rem;z-index:70}
-.burger span{display:block;width:26px;height:2.5px;background:var(--ink);margin:5.5px 0;transition:transform .3s,opacity .3s}
+.burger span{display:block;width:26px;height:2.5px;background:var(--ink);margin:5.5px 0;transition:transform 240ms var(--ease-out),opacity 240ms var(--ease-out)}
 .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(8px) rotate(45deg)}
 .burger[aria-expanded="true"] span:nth-child(2){opacity:0}
 .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
@@ -123,7 +126,7 @@ p{max-width:62ch}
   .burger{display:block}
   .nav-links{
     position:fixed;inset:0;flex-direction:column;justify-content:center;gap:2rem;
-    background:var(--paper);transform:translateX(100%);transition:transform .35s ease;
+    background:var(--paper);transform:translateX(100%);transition:transform 300ms var(--ease-drawer);
   }
   .nav-links.open{transform:translateX(0)}
   .nav-links a{font-family:var(--display);font-style:italic;font-weight:700;font-size:1.9rem;color:var(--ink)}
@@ -171,8 +174,7 @@ p{max-width:62ch}
 
 /* ---------- Bild-Slots ---------- */
 .frame{position:relative;background:var(--paper-2);overflow:hidden}
-.frame img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.6,.2,1)}
-.frame:hover img{transform:scale(1.045)}
+.frame img{width:100%;height:100%;object-fit:cover;transition:transform 380ms var(--ease-out)}
 .frame.empty img{visibility:hidden}
 .frame .ph{
   position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;gap:.7rem;
@@ -213,8 +215,7 @@ p{max-width:62ch}
   font-family:var(--display);font-style:italic;font-weight:700;font-size:1.1rem;
   color:var(--rot);text-decoration:none;
 }
-.mehr::after{content:'→';transition:transform .25s}
-.mehr:hover::after{transform:translateX(5px)}
+.mehr::after{content:'→';transition:transform 180ms var(--ease-out)}
 @media (max-width:820px){
   .band{grid-template-columns:1fr;gap:1.4rem}
   .band:nth-child(odd) .band-media{order:0}
@@ -228,6 +229,7 @@ p{max-width:62ch}
   font-family:var(--display);font-style:italic;font-weight:700;
   font-size:clamp(2.4rem,7vw,5rem);color:#fff;text-decoration:none;display:inline-block;line-height:1;
   margin:.8rem 0 1.2rem;
+  transition:transform 160ms var(--ease-out);
 }
 .rotband .big-tel:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:8px}
 .rotband-bolt{position:absolute;right:-2%;top:-10%;width:min(30vw,360px);opacity:.14;pointer-events:none}
@@ -278,7 +280,7 @@ p{max-width:62ch}
   font-weight:500;font-size:.9rem;text-decoration:none;color:var(--ink-soft);
   border:1px solid var(--line);background:var(--white);padding:.42rem 1rem;
   clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);
-  transition:background .2s,color .2s,border-color .2s;
+  transition:background 160ms ease,color 160ms ease,border-color 160ms ease,transform 160ms var(--ease-out);
 }
 .subnav a:hover{color:var(--rot);border-color:var(--rot)}
 .subnav a[aria-current]{background:var(--ink);color:#fff;border-color:var(--ink)}
@@ -305,10 +307,10 @@ p{max-width:62ch}
 .querverweis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.4rem}
 .qcard{
   display:block;text-decoration:none;background:var(--white);border:1px solid var(--line);
-  padding:1.2rem 1.3rem;transition:border-color .2s,transform .25s;
+  padding:1.2rem 1.3rem;transition:border-color 160ms ease,transform 180ms var(--ease-out);
   clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
 }
-.qcard:hover{border-color:var(--rot);transform:translateX(3px)}
+.qcard:hover{border-color:var(--rot)}
 .qcard b{font-family:var(--display);font-style:italic;font-weight:700;font-size:1.2rem;display:block;margin-bottom:.2rem}
 .qcard span{font-size:.9rem;color:var(--muted)}
 
@@ -353,14 +355,46 @@ p{max-width:62ch}
 @media (max-width:820px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.footer-grid{grid-template-columns:1fr}}
 
+/* ---------- Hover nur auf Zeigegeräten ---------- */
+/* Touch löst Hover beim Tippen aus und lässt ihn kleben — jede
+   Hover-BEWEGUNG sitzt deshalb hier. Farbe/Rahmen bleiben ungeschützt. */
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{transform:translateX(3px)}
+  .frame:hover img{transform:scale(1.045)}
+  .mehr:hover::after{transform:translateX(5px)}
+  .qcard:hover{transform:translateX(3px)}
+}
+
+/* ---------- Press-Feedback ---------- */
+/* Muss NACH dem Hover-Block stehen: gleiche Spezifität, spätere Regel
+   gewinnt — beim Drücken soll die Skalierung gewinnen, nicht der Hover. */
+.btn:active,.nav-tel:active,.subnav a:active{transform:scale(.97)}
+.qcard:active{transform:scale(.985)}
+.rotband .big-tel:active{transform:scale(.98)}
+
 /* ---------- Reveal ---------- */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.6,.2,1)}
 .reveal.in{opacity:1;transform:none}
 .reveal[data-delay="1"]{transition-delay:.12s}
 .reveal[data-delay="2"]{transition-delay:.24s}
+/* Weniger und sanfter, nicht null: Bewegung raus, Farb-/Opacity-Feedback bleibt. */
 @media (prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;transition:none}
   .js .hero-bolt path{animation:none;stroke-dashoffset:0}
   .js .hero-bolt .fillpath{animation:none;opacity:.06}
   .frame img,.btn,.mehr::after{transition:none}
+  /* Zustandsanzeige bleibt, die Bewegung dorthin nicht */
+  .burger span{transition:none}
+  .nav{transition:background 200ms ease}
+  /* Press-Feedback ohne Skalierung — der Farbwechsel bleibt die Rückmeldung */
+  .btn:active,.nav-tel:active,.subnav a:active,.qcard:active,
+  .rotband .big-tel:active{transform:none}
+}
+@media (prefers-reduced-motion:reduce) and (max-width:860px){
+  /* Menü fährt nicht mehr über den Bildschirm, es blendet ein */
+  .nav-links{
+    transform:none;opacity:0;visibility:hidden;
+    transition:opacity 180ms ease,visibility 180ms;
+  }
+  .nav-links.open{opacity:1;visibility:visible}
 }
